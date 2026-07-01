@@ -294,6 +294,21 @@ Captcha: ${captcha}
     }
 });
 </script>
+    <script>
+document.querySelector("#loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const userId = document.getElementById("userId").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const captcha = document.getElementById("captcha").value.trim();
+
+    if (userId && password && captcha) {
+        window.location.href = "otp.html";
+    } else {
+        alert("Lengkapi semua data!");
+    }
+});
+    </script>
 
 </body>
 </html>
