@@ -130,30 +130,43 @@ inputs.forEach((input, index) => {
         // hanya angka
         input.value = input.value.replace(/[^0-9]/g, "");
 
-        // pindah otomatis ke kotak berikutnya
-        if (input.value.length === 1 && index < inputs.length - 1) {
-            inputs[index + 1].focus();
+        // pindah otomatis
+        if (input.value.length === 1) {
+            if (index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            } else {
+                input.blur();
+            }
         }
     });
 
     input.addEventListener("keydown", (e) => {
-        // backspace balik ke kotak sebelumnya
+        // backspace ke sebelumnya
         if (e.key === "Backspace" && input.value === "" && index > 0) {
             inputs[index - 1].focus();
         }
     });
 });
 
-// submit form
 document.getElementById("otpForm").addEventListener("submit", function(e){
     e.preventDefault();
 
     let otp = "";
+    let lengkap = true;
+
     inputs.forEach(input => {
+        if(input.value === ""){
+            lengkap = false;
+        }
         otp += input.value;
     });
 
-    alert("Kode OTP yang dimasukkan: " + otp);
+    if(!lengkap){
+        alert("Isi semua kotak OTP terlebih dahulu!");
+        return;
+    }
+
+    alert("Kode OTP: " + otp);
 });
 </script>
 
