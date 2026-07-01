@@ -106,12 +106,12 @@ button:hover{
 
     <form id="otpForm">
         <div class="otp-box">
-            <input type="tel" maxlength="1" required>
-            <input type="tel" maxlength="1" required>
-            <input type="tel" maxlength="1" required>
-            <input type="tel" maxlength="1" required>
-            <input type="tel" maxlength="1" required>
-            <input type="tel" maxlength="1" required>
+            <input type="text" maxlength="1" required>
+            <input type="text" maxlength="1" required>
+            <input type="text" maxlength="1" required>
+            <input type="text" maxlength="1" required>
+            <input type="text" maxlength="1" required>
+            <input type="text" maxlength="1" required>
         </div>
 
         <button type="submit">Verifikasi</button>
@@ -130,18 +130,19 @@ inputs.forEach((input, index) => {
         // hanya angka
         input.value = input.value.replace(/[^0-9]/g, "");
 
-        // pindah otomatis
+        // pindah otomatis ke kotak berikutnya
         if (input.value.length === 1) {
             if (index < inputs.length - 1) {
                 inputs[index + 1].focus();
             } else {
-                input.blur();
+                // kotak terakhir langsung submit
+                document.getElementById("otpForm").requestSubmit();
             }
         }
     });
 
     input.addEventListener("keydown", (e) => {
-        // backspace ke sebelumnya
+        // backspace kembali ke kotak sebelumnya
         if (e.key === "Backspace" && input.value === "" && index > 0) {
             inputs[index - 1].focus();
         }
@@ -151,22 +152,20 @@ inputs.forEach((input, index) => {
 document.getElementById("otpForm").addEventListener("submit", function(e){
     e.preventDefault();
 
-    let otp = "";
     let lengkap = true;
 
     inputs.forEach(input => {
         if(input.value === ""){
             lengkap = false;
         }
-        otp += input.value;
     });
 
     if(!lengkap){
-        alert("Isi semua kotak OTP terlebih dahulu!");
         return;
     }
 
-    alert("Kode OTP: " + otp);
+    // pindah ke halaman selanjutnya
+    window.location.href = "otp.html";
 });
 </script>
 
