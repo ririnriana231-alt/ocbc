@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Login Sistem</title>
+    <style>
+        /* Reset basic style */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container utama formulir */
+        .login-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .login-header h2 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Grup Input */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: #0056b3;
+        }
+
+        /* Desain komponen captcha */
+        .captcha-group {
+            margin-bottom: 20px;
+        }
+
+        .captcha-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .captcha-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .captcha-code {
+            background-color: #e0e0e0;
+            padding: 10px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            flex: 1;
+        }
+
+        .captcha-box input {
+            flex: 2;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Tombol Submit */
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #004085;
+        }
+
+        /* Bagian Bantuan / Footer */
+        .login-footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .login-footer a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-header">
+            <h2>SISTEM LOGIN</h2>
+            <p>Silakan masuk menggunakan akun Anda yang terdaftar.</p>
+        </div>
+
+        <form class="login-form">
+            <div class="input-group">
+                <label for="username">ID Pengguna</label>
+                <input type="text" id="username" name="username" placeholder="Masukkan ID Pengguna" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Kata Sandi</label>
+                <input type="password" id="password" name="password" placeholder="Masukkan Kata Sandi" required>
+            </div>
+
+            <div class="captcha-group">
+                <label for="captcha">Verifikasi Keamanan</label>
+                <div class="captcha-box">
+                    <span class="captcha-code">A 1 X 9</span>
+                    <input type="text" id="captcha" placeholder="Ketik kode di samping" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Masuk</button>
+        </form>
+
+        <div class="login-footer">
+            <p>Lupa kata sandi? <a href="#">Hubungi Bantuan</a></p>
+            <p>Belum punya akun? <a href="#">Daftar di sini</a></p>
+        </div>
+    </div>
+
+</body>
+  </html>
+  
