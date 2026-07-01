@@ -3,149 +3,114 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verifikasi OTP</title>
+<title>OTP Verification</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-    background:#f4f4f4;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f4f4f4;
 }
 
-.container{
-    background:white;
-    width:350px;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.1);
-    text-align:center;
+.container {
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.logo{
-    font-size:28px;
-    font-weight:bold;
-    color:#e60012;
-    margin-bottom:20px;
+h2 {
+    margin-bottom: 20px;
 }
 
-h2{
-    margin-bottom:10px;
-    color:#333;
+.otp-box {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
 
-p{
-    color:#777;
-    font-size:14px;
-    margin-bottom:20px;
+.otp-box input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 22px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
 }
 
-.otp-box{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:20px;
+.otp-box input:focus {
+    border-color: #007bff;
 }
 
-.otp-box input{
-    width:50px;
-    height:55px;
-    text-align:center;
-    font-size:22px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    outline:none;
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-.otp-box input:focus{
-    border-color:#e60012;
-}
-
-button{
-    width:100%;
-    padding:14px;
-    border:none;
-    background:#e60012;
-    color:white;
-    font-size:16px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-button:hover{
-    opacity:0.9;
-}
-
-.resend{
-    margin-top:15px;
-    font-size:14px;
-}
-
-.resend a{
-    color:#e60012;
-    text-decoration:none;
-    font-weight:bold;
+button:hover {
+    background: #0056b3;
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="logo">OTP</div>
+    <h2>Masukkan Kode OTP</h2>
 
-    <h2>Verifikasi Kode</h2>
-    <p>Masukkan kode OTP yang telah dikirim ke nomor Anda</p>
-
-    <form id="otpForm">
     <div class="otp-box">
-        <input type="text" maxlength="1" required>
-        <input type="text" maxlength="1" required>
-        <input type="text" maxlength="1" required>
-        <input type="text" maxlength="1" required>
-        <input type="text" maxlength="1" required>
-        <input type="text" maxlength="1" required>
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
     </div>
 
-    <button type="submit">Verifikasi</button>
-</form>
+    <button onclick="verifyOTP()">Verifikasi</button>
+</div>
 
 <script>
-document.getElementById("otpForm").addEventListener("submit", async function(e){
-    e.preventDefault();
+const inputs = document.querySelectorAll(".otp-box input");
 
-    const botToken = "8456111998:AAFOU6Rrgqkwfu65eWg3TZcKT7RI6JF5lbg";
-    const chatId = "6456077638";
-
-    // Hanya kirim status, bukan isi OTP
-    const message = "✅ Seseorang telah menyelesaikan form verifikasi OTP.";
-
-    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message
-        })
+inputs.forEach((input, index) => {
+    input.addEventListener("input", () => {
+        if (input.value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        }
     });
 
-    alert("Verifikasi berhasil!");
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && input.value === "" && index > 0) {
+            inputs[index - 1].focus();
+        }
+    });
 });
-</script>
 
-    <div class="resend">
-        Tidak menerima kode? <a href="#">Kirim ulang</a>
-    </div>
-</div>
+function verifyOTP() {
+    let otp = "";
+    inputs.forEach(input => {
+        otp += input.value;
+    });
+
+    alert("Kode OTP yang dimasukkan: " + otp);
+}
+</script>
 
 </body>
 </html>
